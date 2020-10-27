@@ -16,7 +16,6 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -40,7 +39,6 @@
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -53,12 +51,18 @@
                                 <a href="/attractions/create" class="nav-link">Register Attraction Site</a>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="/guides/create" class="nav-link">Register Tour Guide</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a href="/admin/create" class="nav-link">Register Admin</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="usersDropDown"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Manage Users
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="usersDropDown">
+                                    <a class="dropdown-item" href="/admin/create">Create Admin</a>
+                                    <a class="dropdown-item" href="/guides/create">Register Guide</a>
+                                    <a class="dropdown-item" href="/users/admins">View Admins</a>
+                                    <a class="dropdown-item" href="/users/guides">View Guides</a>
+                                    <a class="dropdown-item" href="/users/tourists">View Tourists</a>
+                                </div>
                             </li>
                             @endadmin
                         @endauth
@@ -76,10 +80,12 @@
                             @endif
                         @else
 
-                            <li class="nav-item">
-                                <a id="navbarDropdown" class="nav-link" href="#">
+                             <li class="nav-item dropdown">
+                                <a id="userDropDown"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                   class="nav-link dropdown-toggle" href="#">
                                     @admin
-                                   <h3>{{ Auth::user()->email }}</h3>
+                                   {{ Auth::user()->email }}
                                     @endadmin
 
                                     @guide
@@ -87,15 +93,12 @@
                                     @endguide
 
                                     @tourist
-                                    <h3>{{ Auth::user()->tourist->firstname.'  '.Auth::user()->tourist->lastname }}</h3>
+                                    {{ Auth::user()->tourist->firstname.'  '.Auth::user()->tourist->lastname }}
                                     @endtourist
                                 </a>
 
-
-                            </li>
-
-                            <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('logout') }}"
+                                <div class="dropdown-menu" aria-labelledby="userDropDown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -104,6 +107,8 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                </div>
+
 
                             </li>
                         @endguest
@@ -116,5 +121,12 @@
             @yield('content')
         </main>
     </div>
+<div class="text-center">
+    <footer>
+        <br>
+        <br>
+        <p>Copyright &copy; OTGMS 2020</p>
+    </footer>
+</div>
 </body>
 </html>

@@ -14,9 +14,9 @@ class AdminController extends Controller
 
     public function create ()
     {
-        return \view('admin.create');
+        return view('admin.create');
     }
-    public function strore (Request $request)
+    public function store (Request $request)
     {
         $request->validate([
             'email'=> 'required|email|unique:users|max:255',
@@ -29,13 +29,12 @@ class AdminController extends Controller
             'password'=>Hash::make($request['password'])
         ]);
 
-        return \redirect('admins')->with(['status'=>'You successfully created an admin!!']);
+        return redirect('admins')->with(['status'=>'You successfully created an admin!!']);
     }
 
     public function index()
     {
         $admins = User::where('type', '=', 'admin')->get();
-       // \dd($admins);
         return \view('admin.admins', ['admins'=>$admins]);
     }
 }

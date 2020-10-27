@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', 'WelcomeController@index')->name('index');
 
 Auth::routes();
@@ -52,8 +54,15 @@ Route::get('/guides', 'GuideController@index')
 Route::get('/bookings/pay/{id}', 'BookingsController@pay')
         ->name('bookings.pay')->middleware('tourist');
 
+Route::post('/bookings/pay', 'BookingsController@pay_confirm')->middleware('tourist');
+
 Route::get('/bookings/map/{id}', 'AtrractionsController@map')
             ->name('bookings.map');
 
 Route::get('/bookings/assign/{id}', 'BookingsController@assign')
             ->name('bookings.assign');
+
+Route::post('/bookings/assign/confirm', 'BookingsController@assign_confirm')->middleware('admin');;
+Route::get('/users/admins', 'UsersController@admins');
+Route::get('/users/guides', 'UsersController@guides');
+Route::get('/users/tourists', 'UsersController@tourists');

@@ -50,10 +50,18 @@
                             <td>{{$booking->end}}</td>
                             <td>{{$booking->amount}}</td>
                             <td>
+                                @if ($booking->payment_status == 'Pending')
                                 <a class="btn btn-sm btn-success"
-                                    type="button" href="/bookings/pay/{{$booking->id}}">
+                                   type="button" href="/bookings/pay/{{$booking->id}}">
                                     Pay
                                 </a>
+                                @endif
+
+                                @if ($booking->payment_status == 'Finished')
+                                <p class="text-success">Paid</p>
+                                <p class="text-success"><strong>{{$booking->transaction_code}}</strong></p>
+                                @endif
+
                             </td>
                             </tr>
                         @endforeach

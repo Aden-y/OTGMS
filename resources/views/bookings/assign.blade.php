@@ -7,15 +7,16 @@
                 <div class="card-header text-center"><h2>{{ __('Assign Guide') }}</h2></div>
 
                 <div class="card-body">
-                    <form action="bookings/assign-confirm">
-                    <input type="number" value="{{$booking->id}}" hidden>
+                    <form method="post" action="/bookings/assign/confirm">
+                        @csrf
+                    <input type="number" name="booking_id" value="{{$booking->id}}" hidden>
                         <div class="form-group">
 
                             <label> Select Guide</label><br>
                             <select name="guide" required class="form-control">
-                                <option value="">---</option>
+                                <option  disabled value="">Select guide</option>
                                 @foreach ($guides as $guide)
-                            <option value="{{$guide->id}}">{{$guide->guide->firstname.' '.$guide->guide->lastname}}</option>
+                                     <option value="{{$guide->id}}">{{$guide->firstname.' '.$guide->lastname}}</option>
                                 @endforeach
                             </select>
                             <div class="mt-2">
